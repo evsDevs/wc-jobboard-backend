@@ -27,7 +27,5 @@ if (process.env.NODE_ENV !== "test") {
 }
 
 module.exports = {
-  // test: "got it",
-  app,
-  // db = admin.firestore();
+  app
 };
