@@ -1,19 +1,11 @@
 const express = require("express");
 const morgan = require("morgan");
 // const admin = require("firebase-admin");
-
 const router = require("./api");
 const { logger } = require("./utils/logger");
 const { errorHandler } = require("./middleware/error-handler");
 // const serviceAccount = require("../firebase-credentials.json");
-
-
-// // initialize firebase store
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount)
-// });
-
-// const db = admin.firestore();
+const bodyParser = require('body-parser');
 
 // Create a new express application instance
 const app = express();
@@ -22,7 +14,7 @@ const app = express();
 const port = process.env.PORT || 8081;
 
 logger.info("🤖 Initializing middleware");
-
+app.use(bodyParser.json()); // for parsing application/json
 app.use(morgan("tiny", { stream: logger.stream }));
 app.use("/", router);
 app.use(errorHandler);
@@ -36,6 +28,6 @@ if (process.env.NODE_ENV !== "test") {
 
 module.exports = {
   // test: "got it",
-  app
+  app,
   // db = admin.firestore();
 };
