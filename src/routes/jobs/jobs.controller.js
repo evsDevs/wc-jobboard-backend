@@ -1,40 +1,20 @@
-<<<<<<< bf9adb43c7d525db3181df35bac11a4d44d1bc40
-const db = require("../../utils/database.js");
-
-console.log(db);
-
-const jobsController = (req, res) => { 
-  console.log("iM HERE");
-  db.collection('jobs').get()
-    .then((snapshot) => {
-      snapshot.forEach((doc) => {
-        console.log(doc.id, '=>', doc.data());
-        res.json(doc.data());
-=======
 const db = require("../../utils/database.js"); 
 const translateData = require("./jobs.model.js")
-console.log(db)
 
 const jobsController = (req, res) => {
   console.log("im in the controller")
-
-  // const transformData = translateData(req.body)
-
+  let jobsData = [];
   db.collection('jobs').get()
     .then((snapshot) => {
+
       snapshot.forEach((doc) => {
-        console.log(translateData(doc.data().formData));
-        // console.log(doc.id, '=>', doc.data().formData);
->>>>>>> transforming data from backend
+        jobsData = jobsData.concat(translateData(doc.data().formData));
       });
+      return res.json(jobsData);
     })
     .catch((err) => {
       console.log('Error getting documents', err);
     });
-<<<<<<< bf9adb43c7d525db3181df35bac11a4d44d1bc40
-
-=======
->>>>>>> transforming data from backend
 
 // return res.json({
 //   jobs: [
